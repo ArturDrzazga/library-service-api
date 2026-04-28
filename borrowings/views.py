@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from borrowings.models import Borrowing
+from borrowings.serializers import BorrowingSerializer
+
+
+class BorrowingsViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Borrowing.objects.select_related("book", "user")
+    serializer_class = BorrowingSerializer
